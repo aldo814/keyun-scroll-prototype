@@ -1051,6 +1051,568 @@
         display: block;
       }
 
+      .sim-editor {
+        display: grid;
+        height: 100%;
+        min-height: 620px;
+        background: #eef1f6;
+        grid-template-columns: 190px minmax(0, 1fr) 230px;
+      }
+
+      .demo-viewport > .demo-screen[data-device="tablet"],
+      .demo-viewport > .demo-screen[data-device="mobile"] {
+        width: 100%;
+        border-radius: 0;
+      }
+
+      .sim-left,
+      .sim-inspector {
+        background: #fff;
+      }
+
+      .sim-left {
+        z-index: 2;
+        border-right: 1px solid #e1e6ee;
+        padding: 18px 14px;
+      }
+
+      .sim-logo {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        margin-bottom: 23px;
+        color: #111827;
+        font-size: 17px;
+        font-weight: 800;
+      }
+
+      .sim-logo i {
+        display: grid;
+        width: 25px;
+        height: 25px;
+        place-items: center;
+        background: var(--demo-accent);
+        color: #fff;
+        font-size: 14px;
+        font-style: normal;
+        transition: background 0.35s ease;
+      }
+
+      .sim-site-card {
+        margin-bottom: 16px;
+        padding: 12px;
+        border: 1px solid #e3e8ef;
+        border-radius: 7px;
+      }
+
+      .sim-site-card strong,
+      .sim-site-card span {
+        display: block;
+      }
+
+      .sim-site-card strong {
+        font-size: 12px;
+      }
+
+      .sim-site-card span {
+        margin-top: 3px;
+        color: #8a94a5;
+        font-size: 9px;
+      }
+
+      .sim-left-tabs {
+        display: grid;
+        margin-bottom: 20px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 5px;
+      }
+
+      .sim-left-tabs span {
+        padding: 8px 4px;
+        border-radius: 5px;
+        color: #7b8697;
+        font-size: 10px;
+        font-weight: 700;
+        text-align: center;
+      }
+
+      .sim-left-tabs span:first-child {
+        background: var(--demo-accent);
+        color: #fff;
+        transition: background 0.35s ease;
+      }
+
+      .sim-nav-label {
+        display: block;
+        margin: 16px 0 7px;
+        color: #9aa3b1;
+        font-size: 8px;
+        font-weight: 750;
+        letter-spacing: 0.08em;
+      }
+
+      .sim-page,
+      .sim-section-row {
+        display: flex;
+        align-items: center;
+        border-radius: 5px;
+        font-size: 9px;
+      }
+
+      .sim-page {
+        justify-content: space-between;
+        padding: 9px;
+        background: #f4f6f9;
+        font-weight: 700;
+      }
+
+      .sim-section-row {
+        gap: 7px;
+        margin-top: 5px;
+        padding: 8px;
+        color: #697487;
+      }
+
+      .sim-section-row.active {
+        background: color-mix(in srgb, var(--demo-accent) 9%, white);
+        color: var(--demo-accent);
+        font-weight: 700;
+      }
+
+      .sim-section-row i {
+        width: 17px;
+        color: #adb5c2;
+        font-size: 8px;
+        font-style: normal;
+      }
+
+      .sim-workspace {
+        min-width: 0;
+      }
+
+      .sim-topbar {
+        display: flex;
+        height: 50px;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #e1e6ee;
+        background: #fff;
+        padding: 0 14px;
+      }
+
+      .sim-breadcrumb {
+        color: #687386;
+        font-size: 9px;
+        font-weight: 650;
+      }
+
+      .sim-actions {
+        display: flex;
+        gap: 6px;
+      }
+
+      .sim-actions span {
+        padding: 7px 10px;
+        border: 1px solid #e1e6ee;
+        border-radius: 5px;
+        background: #fff;
+        color: #687386;
+        font-size: 8px;
+        font-weight: 700;
+      }
+
+      .sim-actions span:last-child {
+        border-color: #111827;
+        background: #111827;
+        color: #fff;
+      }
+
+      .sim-canvas-area {
+        display: flex;
+        height: calc(100% - 50px);
+        min-height: 570px;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        padding: 24px;
+      }
+
+      .sim-site {
+        width: 100%;
+        max-height: 510px;
+        overflow: hidden;
+        border: 1px solid #dce2eb;
+        background: #fff;
+        transition:
+          width 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+          border-radius 0.4s ease;
+      }
+
+      .demo-screen[data-device="tablet"] .sim-site {
+        width: 72%;
+        border-radius: 7px;
+      }
+
+      .demo-screen[data-device="mobile"] .sim-site {
+        width: 43%;
+        border-radius: 12px;
+      }
+
+      .sim-site-nav {
+        display: flex;
+        height: 44px;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #edf0f4;
+        padding: 0 18px;
+      }
+
+      .sim-site-brand {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .sim-site-brand i {
+        width: 10px;
+        height: 10px;
+        background: var(--demo-accent);
+        font-style: normal;
+        transition: background 0.35s ease;
+      }
+
+      .sim-site-menu {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #5d6778;
+        font-size: 7px;
+        font-weight: 650;
+      }
+
+      .sim-site-menu b {
+        padding: 6px 9px;
+        border-radius: 4px;
+        background: var(--demo-accent);
+        color: #fff;
+        font-weight: 700;
+        transition: background 0.35s ease;
+      }
+
+      .sim-hero {
+        position: relative;
+        display: grid;
+        min-height: 285px;
+        align-items: center;
+        padding: 42px;
+        outline: 2px solid var(--demo-accent);
+        outline-offset: -2px;
+        background: #f7f9fd;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 30px;
+        transition:
+          outline-color 0.35s ease,
+          background 0.35s ease;
+      }
+
+      .sim-hero-copy small {
+        display: inline-flex;
+        padding: 5px 8px;
+        border-radius: 20px;
+        background: color-mix(in srgb, var(--demo-accent) 10%, white);
+        color: var(--demo-accent);
+        font-size: 7px;
+        font-weight: 750;
+      }
+
+      .sim-hero-copy h3 {
+        max-width: 330px;
+        margin: 13px 0 0;
+        color: #111827;
+        font-size: clamp(20px, 2.2vw, 34px);
+        font-weight: 750;
+        letter-spacing: -0.045em;
+        line-height: 1.1;
+      }
+
+      .sim-hero-copy p {
+        max-width: 310px;
+        margin: 13px 0 0;
+        color: #718096;
+        font-size: 9px;
+        line-height: 1.65;
+      }
+
+      .sim-hero-copy button {
+        margin-top: 20px;
+        padding: 9px 13px;
+        border: 0;
+        border-radius: 5px;
+        background: var(--demo-accent);
+        color: #fff;
+        font-size: 8px;
+        font-weight: 750;
+        transition: background 0.35s ease;
+      }
+
+      .sim-hero-visual {
+        position: relative;
+        aspect-ratio: 1.1;
+        overflow: hidden;
+        border: 1px solid color-mix(in srgb, var(--demo-accent) 25%, white);
+        border-radius: 7px;
+        background: color-mix(in srgb, var(--demo-accent) 8%, white);
+      }
+
+      .sim-hero-visual::before,
+      .sim-hero-visual::after {
+        position: absolute;
+        border: 1px solid color-mix(in srgb, var(--demo-accent) 28%, white);
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.74);
+        content: "";
+      }
+
+      .sim-hero-visual::before {
+        inset: 17% 20% 31% 13%;
+      }
+
+      .sim-hero-visual::after {
+        inset: 39% 10% 13% 38%;
+      }
+
+      .sim-site[data-preset="center"] .sim-hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .sim-site[data-preset="center"] .sim-hero-copy {
+        display: grid;
+        justify-items: center;
+      }
+
+      .sim-site[data-preset="center"] .sim-hero-visual {
+        display: none;
+      }
+
+      .sim-site[data-preset="visual"] .sim-hero {
+        color: #fff;
+        background: var(--demo-accent);
+      }
+
+      .sim-site[data-preset="visual"] .sim-hero-copy h3,
+      .sim-site[data-preset="visual"] .sim-hero-copy p {
+        color: #fff;
+      }
+
+      .sim-site[data-preset="visual"] .sim-hero-copy small,
+      .sim-site[data-preset="visual"] .sim-hero-copy button {
+        background: #fff;
+        color: var(--demo-accent);
+      }
+
+      .sim-feature-strip {
+        display: grid;
+        padding: 15px 18px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+
+      .sim-feature-strip span {
+        height: 42px;
+        border: 1px solid #edf0f4;
+        border-radius: 5px;
+        background:
+          linear-gradient(#dce1e9, #dce1e9) 10px 11px / 38% 4px no-repeat,
+          linear-gradient(#eef1f5, #eef1f5) 10px 22px / 70% 3px no-repeat;
+      }
+
+      .sim-inspector {
+        overflow: hidden;
+        border-left: 1px solid #e1e6ee;
+      }
+
+      .sim-panel {
+        height: 100%;
+        padding: 18px 15px;
+      }
+
+      .sim-panel-library {
+        display: none;
+      }
+
+      .demo-screen[data-view="library"] .sim-panel-style {
+        display: none;
+      }
+
+      .demo-screen[data-view="library"] .sim-panel-library {
+        display: block;
+      }
+
+      .sim-panel-title {
+        margin: 0;
+        color: #18202c;
+        font-size: 12px;
+        font-weight: 750;
+      }
+
+      .sim-panel-desc {
+        margin: 6px 0 17px;
+        color: #8a94a5;
+        font-size: 8px;
+        line-height: 1.55;
+      }
+
+      .sim-field-label {
+        display: block;
+        margin: 15px 0 7px;
+        color: #778294;
+        font-size: 8px;
+        font-weight: 650;
+      }
+
+      .sim-color-row {
+        display: flex;
+        gap: 6px;
+      }
+
+      .sim-color-row i {
+        width: 27px;
+        height: 27px;
+        border: 3px solid #fff;
+        border-radius: 5px;
+        background: var(--demo-accent);
+        box-shadow: 0 0 0 1px #dbe1e9;
+        font-style: normal;
+        transition: background 0.35s ease;
+      }
+
+      .sim-color-row i:nth-child(2) {
+        background: #e0edff;
+      }
+
+      .sim-color-row i:nth-child(3) {
+        background: #111827;
+      }
+
+      .sim-select,
+      .sim-range {
+        width: 100%;
+        border: 1px solid #e1e6ee;
+        border-radius: 5px;
+        background: #fff;
+      }
+
+      .sim-select {
+        padding: 9px;
+        color: #4f5a6b;
+        font-size: 8px;
+      }
+
+      .sim-range {
+        height: 5px;
+        background:
+          linear-gradient(var(--demo-accent), var(--demo-accent)) 0 0 / 66% 100% no-repeat,
+          #edf0f4;
+        transition: background 0.35s ease;
+      }
+
+      .sim-library-tabs {
+        display: grid;
+        margin-bottom: 13px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 5px;
+      }
+
+      .sim-library-tabs span {
+        padding: 7px 4px;
+        border: 1px solid #e1e6ee;
+        border-radius: 5px;
+        color: #778294;
+        font-size: 8px;
+        font-weight: 700;
+        text-align: center;
+      }
+
+      .sim-library-tabs span:first-child {
+        border-color: var(--demo-accent);
+        background: color-mix(in srgb, var(--demo-accent) 8%, white);
+        color: var(--demo-accent);
+      }
+
+      .sim-module-card {
+        margin-top: 8px;
+        padding: 9px;
+        border: 1px solid #e1e6ee;
+        border-radius: 6px;
+        background: #fff;
+      }
+
+      .sim-module-preview {
+        display: grid;
+        height: 54px;
+        align-items: center;
+        margin-bottom: 8px;
+        border-radius: 4px;
+        background: #f5f7fa;
+        grid-template-columns: 1fr 0.8fr;
+        gap: 7px;
+        padding: 9px;
+      }
+
+      .sim-module-preview i,
+      .sim-module-preview b {
+        display: block;
+        border-radius: 3px;
+        font-style: normal;
+      }
+
+      .sim-module-preview i {
+        height: 4px;
+        background: #1a2130;
+        box-shadow: 0 9px 0 #d8dee7, 0 18px 0 var(--demo-accent);
+      }
+
+      .sim-module-preview b {
+        height: 35px;
+        background: color-mix(in srgb, var(--demo-accent) 11%, white);
+      }
+
+      .sim-module-card strong {
+        display: block;
+        font-size: 9px;
+      }
+
+      .sim-module-card p {
+        margin: 3px 0 8px;
+        color: #8a94a5;
+        font-size: 7px;
+      }
+
+      .sim-preset-button {
+        width: 100%;
+        padding: 7px;
+        border: 1px solid #dfe4ec;
+        border-radius: 4px;
+        background: #fff;
+        color: #566173;
+        cursor: pointer;
+        font-size: 8px;
+        font-weight: 700;
+      }
+
+      .sim-preset-button[aria-pressed="true"] {
+        border-color: var(--demo-accent);
+        background: color-mix(in srgb, var(--demo-accent) 8%, white);
+        color: var(--demo-accent);
+      }
+
+      .demo-toast {
+        background: rgba(246, 255, 250, 0.98);
+      }
+
       @media (max-width: 900px) {
         .real-editor-demo {
           padding: 100px 16px 120px;
@@ -1087,6 +1649,29 @@
 
         .demo-screen[data-device="mobile"] {
           width: 58%;
+        }
+
+        .sim-editor {
+          min-height: 520px;
+          grid-template-columns: 112px minmax(0, 1fr);
+        }
+
+        .sim-left {
+          padding: 12px 8px;
+        }
+
+        .sim-inspector {
+          display: none;
+        }
+
+        .sim-canvas-area {
+          min-height: 470px;
+          padding: 12px;
+        }
+
+        .sim-hero {
+          min-height: 220px;
+          padding: 24px;
         }
       }
 
@@ -1331,19 +1916,115 @@
 
           <div class="demo-viewport">
             <div class="demo-screen" data-device="desktop" data-view="style" id="real-editor-screen">
-              <img
-                alt="실제 KEYUN 사이트 스타일 편집 화면"
-                class="demo-shot demo-shot-style"
-                src="./keyun-editor-real.png"
-              />
-              <img
-                alt="실제 KEYUN 섹션 라이브러리 화면"
-                class="demo-shot demo-shot-library"
-                src="./keyun-editor-library-real.png"
-              />
-              <div class="demo-accent-wash" aria-hidden="true"></div>
-              <div class="demo-selection" aria-hidden="true"></div>
-              <button class="demo-library-apply" type="button">이 히어로 적용</button>
+              <div class="sim-editor">
+                <aside class="sim-left">
+                  <div class="sim-logo"><i>K</i> keyun</div>
+                  <div class="sim-site-card">
+                    <strong>KEYUN Studio</strong>
+                    <span>/s/keyun</span>
+                  </div>
+                  <div class="sim-left-tabs"><span>디자인</span><span>기본 설정</span></div>
+                  <span class="sim-nav-label">페이지</span>
+                  <div class="sim-page"><span>Home</span><span>●</span></div>
+                  <span class="sim-nav-label">섹션 위치</span>
+                  <div class="sim-section-row active"><i>01</i>히어로</div>
+                  <div class="sim-section-row"><i>02</i>기능 소개</div>
+                  <div class="sim-section-row"><i>03</i>CTA</div>
+                </aside>
+
+                <div class="sim-workspace">
+                  <div class="sim-topbar">
+                    <span class="sim-breadcrumb">디자인 &nbsp;›&nbsp; Home</span>
+                    <div class="sim-actions"><span>미리보기</span><span>저장</span><span>게시</span></div>
+                  </div>
+                  <div class="sim-canvas-area">
+                    <div class="sim-site" data-preset="split" id="sim-site-preview">
+                      <nav class="sim-site-nav">
+                        <span class="sim-site-brand"><i></i> keyun</span>
+                        <span class="sim-site-menu">
+                          <span>서비스</span><span>템플릿</span><span>문의</span><b>시작하기</b>
+                        </span>
+                      </nav>
+                      <section class="sim-hero">
+                        <div class="sim-hero-copy">
+                          <small>PRESET WEBSITE BUILDER</small>
+                          <h3>쉬운데, 결과물은 예쁜 웹사이트</h3>
+                          <p>검증된 디자인을 선택하고 내용만 바꾸면 사이트가 완성됩니다.</p>
+                          <button type="button">무료로 시작하기</button>
+                        </div>
+                        <div class="sim-hero-visual" aria-hidden="true"></div>
+                      </section>
+                      <div class="sim-feature-strip" aria-hidden="true">
+                        <span></span><span></span><span></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <aside class="sim-inspector">
+                  <div class="sim-panel sim-panel-style">
+                    <h3 class="sim-panel-title">사이트 스타일</h3>
+                    <p class="sim-panel-desc">전체 페이지의 기본 색상, 폰트, 너비를 관리합니다.</p>
+                    <span class="sim-field-label">브랜드 색상</span>
+                    <div class="sim-color-row"><i></i><i></i><i></i></div>
+                    <span class="sim-field-label">본문 기본 폰트</span>
+                    <div class="sim-select">Pretendard</div>
+                    <span class="sim-field-label">제목 기본 폰트</span>
+                    <div class="sim-select">Pretendard</div>
+                    <span class="sim-field-label">기본 inner 최대 너비</span>
+                    <div class="sim-select">기본 1200</div>
+                    <span class="sim-field-label">기본 섹션 간격</span>
+                    <div class="sim-range"></div>
+                  </div>
+
+                  <div class="sim-panel sim-panel-library">
+                    <h3 class="sim-panel-title">섹션 라이브러리</h3>
+                    <p class="sim-panel-desc">검증된 모듈을 선택해 현재 페이지에 적용합니다.</p>
+                    <div class="sim-library-tabs">
+                      <span>히어로</span><span>소개</span><span>기능</span><span>CTA</span>
+                    </div>
+                    <div class="sim-module-card">
+                      <div class="sim-module-preview"><i></i><b></b></div>
+                      <strong>제품 캔버스</strong>
+                      <p>메시지와 제품 화면을 함께 보여주는 구성</p>
+                      <button
+                        aria-pressed="true"
+                        class="sim-preset-button"
+                        data-sim-preset="split"
+                        type="button"
+                      >
+                        적용
+                      </button>
+                    </div>
+                    <div class="sim-module-card">
+                      <div class="sim-module-preview"><i></i><b></b></div>
+                      <strong>중앙 쇼케이스</strong>
+                      <p>중앙 메시지로 신뢰를 만드는 구성</p>
+                      <button
+                        aria-pressed="false"
+                        class="sim-preset-button"
+                        data-sim-preset="center"
+                        type="button"
+                      >
+                        적용
+                      </button>
+                    </div>
+                    <div class="sim-module-card">
+                      <div class="sim-module-preview"><i></i><b></b></div>
+                      <strong>비주얼 강조형</strong>
+                      <p>브랜드 컬러를 크게 활용한 구성</p>
+                      <button
+                        aria-pressed="false"
+                        class="sim-preset-button"
+                        data-sim-preset="visual"
+                        type="button"
+                      >
+                        적용
+                      </button>
+                    </div>
+                  </div>
+                </aside>
+              </div>
               <div class="demo-toast" role="status">✓ 제품 캔버스가 적용되었습니다.</div>
             </div>
           </div>
@@ -1568,8 +2249,9 @@
       const demoViewButtons = gsap.utils.toArray("[data-demo-view]");
       const demoColorButtons = gsap.utils.toArray("[data-demo-color]");
       const demoDeviceButtons = gsap.utils.toArray("[data-demo-device]");
-      const demoApplyButton = document.querySelector(".demo-library-apply");
+      const demoPresetButtons = gsap.utils.toArray("[data-sim-preset]");
       const demoToast = document.querySelector(".demo-toast");
+      const simSitePreview = document.querySelector("#sim-site-preview");
 
       function setPressed(buttons, activeButton) {
         buttons.forEach((button) => {
@@ -1594,7 +2276,7 @@
           realEditorDemo.style.setProperty("--demo-accent", button.dataset.demoColor);
           setPressed(demoColorButtons, button);
           gsap.fromTo(
-            ".demo-selection",
+            ".sim-hero",
             { boxShadow: `0 0 0 0 ${button.dataset.demoColor}00` },
             {
               boxShadow: `0 0 0 9px ${button.dataset.demoColor}20`,
@@ -1613,22 +2295,36 @@
         });
       });
 
-      demoApplyButton.addEventListener("click", () => {
-        realEditorScreen.dataset.view = "style";
-        setPressed(demoViewButtons, demoViewButtons[0]);
-        gsap.fromTo(
-          demoToast,
-          { autoAlpha: 0, y: 12 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.35,
-            ease: "power2.out",
-            onComplete: () => {
-              gsap.to(demoToast, { autoAlpha: 0, y: 8, delay: 1.6, duration: 0.35 });
+      demoPresetButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          simSitePreview.dataset.preset = button.dataset.simPreset;
+          setPressed(demoPresetButtons, button);
+          demoToast.textContent = `✓ ${button.closest(".sim-module-card").querySelector("strong").textContent}가 적용되었습니다.`;
+          gsap.fromTo(
+            ".sim-hero > *",
+            { opacity: 0, y: 16 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.5,
+              stagger: 0.08,
+              ease: "power3.out",
             },
-          },
-        );
+          );
+          gsap.fromTo(
+            demoToast,
+            { autoAlpha: 0, y: 12 },
+            {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.35,
+              ease: "power2.out",
+              onComplete: () => {
+                gsap.to(demoToast, { autoAlpha: 0, y: 8, delay: 1.6, duration: 0.35 });
+              },
+            },
+          );
+        });
       });
 
       gsap.from([".demo-heading", ".demo-controls", ".demo-window"], {
