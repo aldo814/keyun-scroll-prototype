@@ -1,0 +1,1085 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KEYUN Scroll Story Prototype</title>
+    <style>
+      @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+
+      :root {
+        --blue: #3050ec;
+        --ink: #101114;
+        --muted: #687386;
+        --line: #e5e9f0;
+        --soft: #f5f7fb;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: #fff;
+        color: var(--ink);
+        font-family: Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      button {
+        font: inherit;
+      }
+
+      .intro {
+        --intro-progress: 0;
+        position: relative;
+        display: grid;
+        min-height: 100svh;
+        place-items: center;
+        overflow: hidden;
+        background:
+          linear-gradient(rgba(48, 80, 236, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(48, 80, 236, 0.035) 1px, transparent 1px),
+          #fff;
+        background-size: 64px 64px;
+      }
+
+      .intro::after {
+        position: absolute;
+        inset: auto 0 0;
+        height: 160px;
+        background: linear-gradient(transparent, #fff);
+        content: "";
+        pointer-events: none;
+      }
+
+      .intro-scenes {
+        position: relative;
+        z-index: 3;
+        width: min(1560px, calc(100% - 48px));
+        height: min(520px, 64vh);
+        text-align: center;
+      }
+
+      .intro-scene {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        align-content: center;
+        justify-items: center;
+        visibility: hidden;
+        opacity: 0;
+      }
+
+      .intro-scene:first-child {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      .eyebrow {
+        margin: 0 0 24px;
+        color: var(--blue);
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+      }
+
+      .intro-scene h1 {
+        margin: 0;
+        font-size: clamp(54px, 5.4vw, 104px);
+        font-weight: 650;
+        letter-spacing: -0.065em;
+        line-height: 0.98;
+      }
+
+      .intro-scene h1 span {
+        display: block;
+        margin-top: 12px;
+        color: var(--blue);
+      }
+
+      .intro-scene h1 .dark {
+        color: var(--ink);
+      }
+
+      .intro-description {
+        margin: 34px 0 0;
+        color: var(--muted);
+        font-size: clamp(16px, 1.3vw, 21px);
+        font-weight: 500;
+        line-height: 1.65;
+      }
+
+      .intro-guide {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin-top: 46px;
+        color: #8a93a3;
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .intro-guide i {
+        display: block;
+        width: 1px;
+        height: 28px;
+        background: var(--blue);
+        animation: guide 1.4s ease-in-out infinite;
+        transform-origin: top;
+      }
+
+      .intro-card {
+        position: absolute;
+        z-index: 1;
+        width: clamp(170px, 17vw, 320px);
+        aspect-ratio: 1.35;
+        overflow: hidden;
+        border: 1px solid rgba(48, 80, 236, 0.14);
+        border-radius: 10px;
+        background: #fff;
+        box-shadow: 0 24px 70px rgba(24, 37, 72, 0.08);
+        transition: transform 0.2s linear;
+      }
+
+      .intro-card::before {
+        display: block;
+        height: 12%;
+        border-bottom: 1px solid #edf0f5;
+        background: #fff;
+        content: "";
+      }
+
+      .intro-card::after {
+        position: absolute;
+        inset: 28% 12% 15%;
+        border-radius: 5px;
+        background:
+          linear-gradient(var(--blue), var(--blue)) 0 0 / 38% 9% no-repeat,
+          linear-gradient(#161922, #161922) 0 22% / 72% 13% no-repeat,
+          linear-gradient(#dfe4ed, #dfe4ed) 0 48% / 86% 5% no-repeat,
+          linear-gradient(#dfe4ed, #dfe4ed) 0 62% / 62% 5% no-repeat,
+          linear-gradient(#dce6ff, #dce6ff) 100% 100% / 42% 92% no-repeat;
+        content: "";
+      }
+
+      .intro-card:nth-of-type(1) {
+        top: 13%;
+        left: 5%;
+        transform: rotate(-8deg) translateY(calc(var(--intro-progress) * 130px));
+      }
+
+      .intro-card:nth-of-type(2) {
+        top: 9%;
+        right: 5%;
+        transform: rotate(7deg) translateY(calc(var(--intro-progress) * 100px));
+      }
+
+      .intro-card:nth-of-type(3) {
+        bottom: 5%;
+        left: 11%;
+        transform: rotate(5deg) translateY(calc(var(--intro-progress) * -80px));
+      }
+
+      .intro-card:nth-of-type(4) {
+        right: 9%;
+        bottom: 4%;
+        transform: rotate(-6deg) translateY(calc(var(--intro-progress) * -110px));
+      }
+
+      .story {
+        position: relative;
+        min-height: 330vh;
+        border-top: 1px solid #eef1f6;
+      }
+
+      .story-inner {
+        display: grid;
+        width: min(1400px, calc(100% - 64px));
+        margin: 0 auto;
+        grid-template-columns: minmax(320px, 0.72fr) minmax(580px, 1.28fr);
+        gap: 7vw;
+      }
+
+      .story-copy {
+        position: relative;
+      }
+
+      .step {
+        display: flex;
+        min-height: 110vh;
+        flex-direction: column;
+        justify-content: center;
+        opacity: 0.25;
+        transition: opacity 0.45s ease;
+      }
+
+      .step.is-active {
+        opacity: 1;
+      }
+
+      .step-index {
+        margin: 0 0 18px;
+        color: var(--blue);
+        font-size: 14px;
+        font-weight: 750;
+        letter-spacing: 0.16em;
+      }
+
+      .step h2 {
+        margin: 0;
+        font-size: clamp(44px, 4.3vw, 72px);
+        font-weight: 650;
+        letter-spacing: -0.055em;
+        line-height: 1.08;
+      }
+
+      .step p:last-child {
+        max-width: 490px;
+        margin: 28px 0 0;
+        color: var(--muted);
+        font-size: 18px;
+        line-height: 1.75;
+      }
+
+      .visual-sticky {
+        position: sticky;
+        top: 0;
+        display: grid;
+        height: 100svh;
+        place-items: center;
+      }
+
+      .visual {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1.22;
+      }
+
+      .browser {
+        position: absolute;
+        inset: 9% 1% 8%;
+        overflow: hidden;
+        border: 1px solid #dfe4ec;
+        border-radius: 14px;
+        background: #fff;
+        box-shadow: 0 30px 80px rgba(22, 35, 66, 0.1);
+      }
+
+      .browser-bar {
+        display: flex;
+        height: 46px;
+        align-items: center;
+        gap: 7px;
+        border-bottom: 1px solid var(--line);
+        padding: 0 16px;
+      }
+
+      .browser-bar i {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #ccd3de;
+      }
+
+      .browser-bar span {
+        width: 42%;
+        height: 20px;
+        margin-left: 10px;
+        border-radius: 5px;
+        background: #f1f3f7;
+      }
+
+      .stage {
+        position: absolute;
+        inset: 46px 0 0;
+        opacity: 0;
+        transform: translateY(18px) scale(0.985);
+        transition:
+          opacity 0.55s ease,
+          transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      [data-stage="select"] .stage-select,
+      [data-stage="edit"] .stage-edit,
+      [data-stage="publish"] .stage-publish {
+        z-index: 2;
+        opacity: 1;
+        transform: none;
+      }
+
+      .template-grid {
+        display: grid;
+        height: 100%;
+        padding: 38px;
+        background: var(--soft);
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+
+      .template {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid #e2e7ef;
+        border-radius: 8px;
+        background: #fff;
+        transition:
+          transform 0.45s ease,
+          border-color 0.45s ease;
+      }
+
+      .template:nth-child(2) {
+        border: 2px solid var(--blue);
+        transform: translateY(-10px);
+      }
+
+      .template::before {
+        display: block;
+        height: 9%;
+        border-bottom: 1px solid #edf0f4;
+        content: "";
+      }
+
+      .template::after {
+        position: absolute;
+        inset: 18% 11% 10%;
+        background:
+          linear-gradient(var(--blue), var(--blue)) 0 0 / 30% 4% no-repeat,
+          linear-gradient(#151923, #151923) 0 12% / 70% 9% no-repeat,
+          linear-gradient(#dfe4ed, #dfe4ed) 0 28% / 85% 3% no-repeat,
+          linear-gradient(135deg, #dce7ff, #f4f7ff) 0 46% / 100% 54% no-repeat;
+        content: "";
+      }
+
+      .selected-badge {
+        position: absolute;
+        z-index: 3;
+        top: 48px;
+        left: 50%;
+        padding: 7px 12px;
+        border-radius: 20px;
+        background: var(--blue);
+        color: white;
+        font-size: 11px;
+        font-weight: 700;
+        transform: translateX(-50%);
+      }
+
+      .editor {
+        display: grid;
+        height: 100%;
+        background: #eef1f6;
+        grid-template-columns: 130px 1fr 168px;
+      }
+
+      .editor-side,
+      .editor-control {
+        background: #fff;
+        padding: 18px 12px;
+      }
+
+      .editor-side {
+        border-right: 1px solid var(--line);
+      }
+
+      .editor-control {
+        border-left: 1px solid var(--line);
+      }
+
+      .ui-label {
+        display: block;
+        margin-bottom: 12px;
+        color: #9aa3b2;
+        font-size: 9px;
+        font-weight: 700;
+      }
+
+      .ui-row {
+        height: 30px;
+        margin-bottom: 7px;
+        border-radius: 5px;
+        background: #f3f5f8;
+      }
+
+      .ui-row.active {
+        border: 1px solid #b8c8ff;
+        background: #edf2ff;
+      }
+
+      .editor-canvas {
+        display: grid;
+        padding: 28px;
+        place-items: center;
+      }
+
+      .mini-site {
+        width: 100%;
+        overflow: hidden;
+        border: 2px solid var(--blue);
+        background: #fff;
+      }
+
+      .mini-nav {
+        display: flex;
+        height: 34px;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #edf0f4;
+        padding: 0 13px;
+      }
+
+      .mini-logo {
+        width: 38px;
+        height: 7px;
+        border-radius: 8px;
+        background: #111827;
+      }
+
+      .mini-menu {
+        display: flex;
+        gap: 6px;
+      }
+
+      .mini-menu i {
+        width: 20px;
+        height: 4px;
+        border-radius: 4px;
+        background: #d5dae3;
+      }
+
+      .mini-hero {
+        display: grid;
+        min-height: 210px;
+        align-items: center;
+        padding: 30px;
+        background: #f7f9fd;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 20px;
+      }
+
+      .mini-copy b,
+      .mini-copy span {
+        display: block;
+        border-radius: 8px;
+      }
+
+      .mini-copy b {
+        width: 86%;
+        height: 14px;
+        margin-bottom: 8px;
+        background: #111827;
+      }
+
+      .mini-copy b:nth-child(2) {
+        width: 64%;
+      }
+
+      .mini-copy span {
+        width: 92%;
+        height: 5px;
+        margin-top: 16px;
+        background: #cfd5df;
+      }
+
+      .mini-copy em {
+        display: block;
+        width: 72px;
+        height: 24px;
+        margin-top: 22px;
+        border-radius: 5px;
+        background: var(--blue);
+      }
+
+      .mini-image {
+        aspect-ratio: 1;
+        border-radius: 9px;
+        background: linear-gradient(145deg, #bfd0ff, #edf2ff);
+      }
+
+      .swatches {
+        display: flex;
+        gap: 7px;
+        margin: 8px 0 22px;
+      }
+
+      .swatches i {
+        width: 24px;
+        height: 24px;
+        border: 2px solid #fff;
+        border-radius: 5px;
+        background: var(--blue);
+        box-shadow: 0 0 0 1px #d7dce5;
+      }
+
+      .swatches i:nth-child(2) {
+        background: #111827;
+      }
+
+      .swatches i:nth-child(3) {
+        background: #10b981;
+      }
+
+      .publish-canvas {
+        display: grid;
+        height: 100%;
+        place-items: center;
+        background: #f6f8fc;
+      }
+
+      .device {
+        position: absolute;
+        overflow: hidden;
+        border: 7px solid #151821;
+        background: white;
+        box-shadow: 0 24px 60px rgba(15, 24, 50, 0.16);
+      }
+
+      .device::after {
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(#fff, #fff) 0 0 / 100% 12% no-repeat,
+          linear-gradient(var(--blue), var(--blue)) 9% 23% / 38% 5% no-repeat,
+          linear-gradient(#161922, #161922) 9% 33% / 55% 8% no-repeat,
+          linear-gradient(#dfe4ed, #dfe4ed) 9% 49% / 72% 3% no-repeat,
+          linear-gradient(135deg, #dce7ff, #f6f8fc) 90% 60% / 34% 48% no-repeat;
+        content: "";
+      }
+
+      .desktop {
+        top: 15%;
+        left: 10%;
+        width: 68%;
+        aspect-ratio: 1.45;
+        border-width: 9px;
+        border-radius: 9px;
+      }
+
+      .tablet {
+        right: 10%;
+        bottom: 13%;
+        width: 32%;
+        aspect-ratio: 0.78;
+        border-radius: 12px;
+      }
+
+      .mobile {
+        right: 2%;
+        bottom: 9%;
+        width: 16%;
+        aspect-ratio: 0.52;
+        border-width: 5px;
+        border-radius: 14px;
+      }
+
+      .publish-state {
+        position: absolute;
+        z-index: 4;
+        top: 10%;
+        right: 7%;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        padding: 9px 13px;
+        border: 1px solid #ccebdc;
+        border-radius: 30px;
+        background: #f2fff8;
+        color: #087a4c;
+        font-size: 11px;
+        font-weight: 750;
+      }
+
+      .publish-state i {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #10b981;
+        box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.12);
+      }
+
+      .progress {
+        position: absolute;
+        top: 50%;
+        right: -28px;
+        width: 2px;
+        height: 150px;
+        border-radius: 4px;
+        background: #e6eaf1;
+        transform: translateY(-50%);
+      }
+
+      .progress span {
+        display: block;
+        width: 100%;
+        height: 33.333%;
+        border-radius: inherit;
+        background: var(--blue);
+        transition: transform 0.45s ease;
+        transform: translateY(0);
+      }
+
+      [data-stage="edit"] .progress span {
+        transform: translateY(100%);
+      }
+
+      [data-stage="publish"] .progress span {
+        transform: translateY(200%);
+      }
+
+      @keyframes title-in {
+        from {
+          clip-path: inset(100% 0 0 0);
+          transform: translateY(48px);
+        }
+      }
+
+      @keyframes guide {
+        0%,
+        100% {
+          opacity: 0.35;
+          transform: scaleY(0.3);
+        }
+        50% {
+          opacity: 1;
+          transform: scaleY(1);
+        }
+      }
+
+      @media (max-width: 900px) {
+        .intro {
+          min-height: 92svh;
+        }
+
+        .intro-scene h1 {
+          font-size: clamp(48px, 13vw, 76px);
+        }
+
+        .intro-card {
+          width: 150px;
+          opacity: 0.58;
+        }
+
+        .story {
+          min-height: 0;
+        }
+
+        .story-inner {
+          display: block;
+          width: min(100% - 32px, 680px);
+        }
+
+        .story-copy {
+          display: contents;
+        }
+
+        .step {
+          min-height: auto;
+          padding: 100px 4px 28px;
+          opacity: 1;
+        }
+
+        .step h2 {
+          font-size: 46px;
+        }
+
+        .visual-sticky {
+          position: relative;
+          height: auto;
+          margin-bottom: 80px;
+        }
+
+        .visual {
+          aspect-ratio: 0.95;
+        }
+
+        .browser {
+          inset: 3% 0;
+        }
+
+        .editor {
+          grid-template-columns: 82px 1fr;
+        }
+
+        .editor-control {
+          display: none;
+        }
+
+        .template-grid {
+          padding: 24px 16px;
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .template:last-child {
+          display: none;
+        }
+
+        .progress {
+          display: none;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="intro" id="intro">
+      <div class="intro-card" aria-hidden="true"></div>
+      <div class="intro-card" aria-hidden="true"></div>
+      <div class="intro-card" aria-hidden="true"></div>
+      <div class="intro-card" aria-hidden="true"></div>
+      <div class="intro-scenes">
+        <div class="intro-scene" data-intro-scene="problem">
+          <p class="eyebrow">THE PROBLEM</p>
+          <h1>
+            노코드 솔루션이 좋다던데,
+            <span>왜 이렇게 손이 많이 갈까요?</span>
+          </h1>
+        </div>
+
+        <div class="intro-scene" data-intro-scene="solution">
+          <p class="eyebrow">THE KEYUN WAY</p>
+          <h1>
+            복잡한 디자인은
+            <span>KEYUN이 정리했습니다.</span>
+          </h1>
+        </div>
+
+        <div class="intro-scene" data-intro-scene="result">
+          <p class="eyebrow">YOUR BRAND, YOUR WEBSITE</p>
+          <h1>
+            나만의 브랜드,
+            <span class="dark">나만의 홈페이지.</span>
+          </h1>
+          <p class="intro-description">
+            검증된 모듈을 조합해, 레이아웃 깨짐 없이 완성하세요.
+          </p>
+          <div class="intro-guide"><i></i> SCROLL TO BUILD</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="story" id="story">
+      <div class="story-inner">
+        <div class="story-copy">
+          <article class="step is-active" data-step="select">
+            <p class="step-index">01 · SELECT</p>
+            <h2>빈 화면에서<br />시작하지 마세요.</h2>
+            <p>
+              업종과 목적에 맞는 템플릿을 고르면<br />
+              페이지와 메뉴까지 한 번에 준비됩니다.
+            </p>
+          </article>
+
+          <article class="step" data-step="edit">
+            <p class="step-index">02 · EDIT</p>
+            <h2>내용만 바꿔도<br />우리 브랜드답게.</h2>
+            <p>
+              검증된 섹션에 텍스트와 이미지를 넣고<br />
+              색상과 폰트만 간단하게 조정하세요.
+            </p>
+          </article>
+
+          <article class="step" data-step="publish">
+            <p class="step-index">03 · PUBLISH</p>
+            <h2>완성도는 높게,<br />운영은 가볍게.</h2>
+            <p>
+              모바일 대응부터 SEO, 게시글과 문의 관리까지<br />
+              KEYUN에서 바로 게시하고 운영할 수 있습니다.
+            </p>
+          </article>
+        </div>
+
+        <div class="visual-sticky">
+          <div class="visual" data-stage="select" id="visual">
+            <div class="browser">
+              <div class="browser-bar"><i></i><i></i><i></i><span></span></div>
+
+              <div class="stage stage-select">
+                <div class="template-grid">
+                  <div class="template"></div>
+                  <div class="template"><span class="selected-badge">선택됨</span></div>
+                  <div class="template"></div>
+                </div>
+              </div>
+
+              <div class="stage stage-edit">
+                <div class="editor">
+                  <aside class="editor-side">
+                    <span class="ui-label">현재 페이지</span>
+                    <div class="ui-row active"></div>
+                    <span class="ui-label">섹션</span>
+                    <div class="ui-row active"></div>
+                    <div class="ui-row"></div>
+                    <div class="ui-row"></div>
+                  </aside>
+                  <div class="editor-canvas">
+                    <div class="mini-site">
+                      <div class="mini-nav">
+                        <span class="mini-logo"></span>
+                        <span class="mini-menu"><i></i><i></i><i></i></span>
+                      </div>
+                      <div class="mini-hero">
+                        <div class="mini-copy">
+                          <b></b><b></b><span></span><em></em>
+                        </div>
+                        <div class="mini-image"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <aside class="editor-control">
+                    <span class="ui-label">브랜드 색상</span>
+                    <div class="swatches"><i></i><i></i><i></i></div>
+                    <span class="ui-label">레이아웃</span>
+                    <div class="ui-row active"></div>
+                    <div class="ui-row"></div>
+                    <span class="ui-label">섹션 간격</span>
+                    <div class="ui-row"></div>
+                  </aside>
+                </div>
+              </div>
+
+              <div class="stage stage-publish">
+                <div class="publish-canvas">
+                  <div class="device desktop"></div>
+                  <div class="device tablet"></div>
+                  <div class="device mobile"></div>
+                  <span class="publish-state"><i></i> 게시 완료</span>
+                </div>
+              </div>
+            </div>
+            <div class="progress"><span></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script>
+      gsap.registerPlugin(ScrollTrigger);
+
+      const visual = document.querySelector("#visual");
+      const steps = gsap.utils.toArray(".step");
+      const stages = {
+        select: document.querySelector(".stage-select"),
+        edit: document.querySelector(".stage-edit"),
+        publish: document.querySelector(".stage-publish"),
+      };
+
+      gsap.set(".intro-card", { willChange: "transform, opacity" });
+      const introScenes = {
+        problem: document.querySelector('[data-intro-scene="problem"]'),
+        solution: document.querySelector('[data-intro-scene="solution"]'),
+        result: document.querySelector('[data-intro-scene="result"]'),
+      };
+
+      gsap.set(".intro-scene", {
+        autoAlpha: 0,
+        y: 70,
+        willChange: "transform, opacity",
+      });
+      gsap.set(introScenes.problem, { autoAlpha: 1, y: 0 });
+
+      const introTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".intro",
+          start: "top top",
+          end: "+=280%",
+          scrub: 0.8,
+          pin: true,
+          anticipatePin: 1,
+        },
+      });
+
+      introTimeline
+        .to(
+          introScenes.problem,
+          {
+            y: -90,
+            autoAlpha: 0,
+            ease: "power3.in",
+          },
+          0.32,
+        )
+        .fromTo(
+          introScenes.solution,
+          { y: 90, autoAlpha: 0 },
+          {
+            y: 0,
+            autoAlpha: 1,
+            ease: "power3.out",
+          },
+          0.52,
+        )
+        .to(
+          introScenes.solution,
+          {
+            y: -90,
+            autoAlpha: 0,
+            ease: "power3.in",
+          },
+          1.32,
+        )
+        .fromTo(
+          introScenes.result,
+          { y: 90, autoAlpha: 0 },
+          {
+            y: 0,
+            autoAlpha: 1,
+            ease: "power3.out",
+          },
+          1.52,
+        )
+        .to(
+          ".intro-card",
+          {
+            x: (index, element) => {
+              const rect = element.getBoundingClientRect();
+              return window.innerWidth / 2 - (rect.left + rect.width / 2);
+            },
+            y: (index, element) => {
+              const rect = element.getBoundingClientRect();
+              return window.innerHeight / 2 - (rect.top + rect.height / 2);
+            },
+            rotation: 0,
+            scale: 0.72,
+            stagger: 0.045,
+            ease: "power3.inOut",
+          },
+          1.45,
+        )
+        .to(
+          introScenes.result,
+          {
+            y: -70,
+            scale: 0.9,
+            autoAlpha: 0,
+            ease: "power2.in",
+          },
+          2.3,
+        )
+        .to(
+          ".intro-card",
+          {
+            opacity: 0,
+            scale: 0.58,
+            stagger: 0.035,
+            ease: "power2.in",
+          },
+          2.32,
+        );
+
+      function activateStage(stage) {
+        visual.dataset.stage = stage;
+
+        steps.forEach((step) => {
+          const isActive = step.dataset.step === stage;
+          step.classList.toggle("is-active", isActive);
+          gsap.to(step, {
+            opacity: isActive ? 1 : 0.25,
+            y: isActive ? 0 : 18,
+            duration: 0.45,
+            ease: "power2.out",
+            overwrite: true,
+          });
+        });
+
+        Object.entries(stages).forEach(([name, element]) => {
+          const isActive = name === stage;
+          gsap.to(element, {
+            autoAlpha: isActive ? 1 : 0,
+            y: isActive ? 0 : 20,
+            scale: isActive ? 1 : 0.985,
+            duration: 0.65,
+            ease: "power3.out",
+            overwrite: true,
+          });
+        });
+
+        if (stage === "select") {
+          gsap.fromTo(
+            ".template",
+            { y: 42, opacity: 0, rotateY: -8 },
+            {
+              y: 0,
+              opacity: 1,
+              rotateY: 0,
+              duration: 0.72,
+              stagger: 0.1,
+              ease: "power3.out",
+              overwrite: true,
+            },
+          );
+        }
+
+        if (stage === "edit") {
+          gsap.fromTo(
+            [".editor-side", ".editor-control"],
+            { x: (index) => (index === 0 ? -34 : 34), opacity: 0 },
+            {
+              x: 0,
+              opacity: 1,
+              duration: 0.58,
+              stagger: 0.08,
+              ease: "power3.out",
+              overwrite: true,
+            },
+          );
+          gsap.fromTo(
+            ".mini-site",
+            { scale: 0.92, opacity: 0 },
+            { scale: 1, opacity: 1, duration: 0.75, ease: "power3.out", overwrite: true },
+          );
+        }
+
+        if (stage === "publish") {
+          gsap.fromTo(
+            ".device",
+            { y: 44, scale: 0.86, opacity: 0 },
+            {
+              y: 0,
+              scale: 1,
+              opacity: 1,
+              duration: 0.78,
+              stagger: 0.11,
+              ease: "back.out(1.35)",
+              overwrite: true,
+            },
+          );
+          gsap.fromTo(
+            ".publish-state",
+            { y: -12, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.45, delay: 0.35, ease: "power2.out" },
+          );
+        }
+      }
+
+      steps.forEach((step) => {
+        const stage = step.dataset.step;
+        ScrollTrigger.create({
+          trigger: step,
+          start: "top 58%",
+          end: "bottom 42%",
+          onEnter: () => activateStage(stage),
+          onEnterBack: () => activateStage(stage),
+        });
+      });
+
+      activateStage("select");
+      window.addEventListener("load", () => ScrollTrigger.refresh());
+    </script>
+  </body>
+</html>
