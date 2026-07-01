@@ -722,6 +722,374 @@
         }
       }
 
+      .real-editor-demo {
+        --demo-accent: #3050ec;
+        padding: 150px 32px 170px;
+        overflow: hidden;
+        border-top: 1px solid #e9edf4;
+        background: #f7f9fc;
+      }
+
+      .demo-heading {
+        width: min(1400px, 100%);
+        margin: 0 auto 54px;
+      }
+
+      .demo-heading h2 {
+        max-width: 860px;
+        margin: 0;
+        font-size: clamp(46px, 5vw, 76px);
+        font-weight: 650;
+        letter-spacing: -0.055em;
+        line-height: 1.05;
+      }
+
+      .demo-heading h2 span {
+        color: var(--demo-accent);
+        transition: color 0.35s ease;
+      }
+
+      .demo-heading p:last-child {
+        max-width: 620px;
+        margin: 24px 0 0;
+        color: var(--muted);
+        font-size: 17px;
+        line-height: 1.75;
+      }
+
+      .demo-layout {
+        display: grid;
+        width: min(1400px, 100%);
+        margin: 0 auto;
+        align-items: start;
+        grid-template-columns: 270px minmax(0, 1fr);
+        gap: 28px;
+      }
+
+      .demo-controls {
+        display: grid;
+        gap: 28px;
+        padding: 24px;
+        border: 1px solid #e1e6ee;
+        border-radius: 8px;
+        background: #fff;
+      }
+
+      .demo-control-label {
+        display: block;
+        margin-bottom: 10px;
+        color: #8b95a5;
+        font-size: 10px;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+      }
+
+      .demo-segment {
+        display: grid;
+        padding: 3px;
+        border-radius: 7px;
+        background: #f1f4f8;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3px;
+      }
+
+      .demo-segment button,
+      .demo-device-button {
+        min-height: 36px;
+        border: 0;
+        border-radius: 5px;
+        background: transparent;
+        color: #687386;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 650;
+        transition: 0.25s ease;
+      }
+
+      .demo-segment button[aria-pressed="true"],
+      .demo-device-button[aria-pressed="true"] {
+        background: #fff;
+        color: var(--demo-accent);
+        box-shadow: 0 1px 5px rgba(30, 42, 70, 0.08);
+      }
+
+      .demo-swatches,
+      .demo-devices {
+        display: flex;
+        gap: 8px;
+      }
+
+      .demo-swatch {
+        width: 34px;
+        height: 34px;
+        padding: 0;
+        border: 3px solid #fff;
+        border-radius: 6px;
+        background: var(--swatch);
+        box-shadow: 0 0 0 1px #d9dfe8;
+        cursor: pointer;
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+
+      .demo-swatch[aria-pressed="true"] {
+        box-shadow: 0 0 0 2px #111827;
+        transform: translateY(-2px);
+      }
+
+      .demo-device-button {
+        flex: 1;
+        border: 1px solid #e1e6ee;
+        background: #fff;
+      }
+
+      .demo-status {
+        padding-top: 20px;
+        border-top: 1px solid #edf0f4;
+      }
+
+      .demo-status strong {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+      }
+
+      .demo-status strong::before {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #10b981;
+        box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.1);
+        content: "";
+      }
+
+      .demo-status p {
+        margin: 9px 0 0;
+        color: #8b95a5;
+        font-size: 11px;
+        line-height: 1.6;
+      }
+
+      .demo-window {
+        overflow: hidden;
+        border: 1px solid #dfe4ec;
+        border-radius: 10px;
+        background: #fff;
+        box-shadow: 0 28px 80px rgba(25, 39, 72, 0.1);
+      }
+
+      .demo-window-bar {
+        display: flex;
+        height: 50px;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #e5e9f0;
+        padding: 0 16px;
+      }
+
+      .demo-window-meta,
+      .demo-window-dots {
+        display: flex;
+        align-items: center;
+      }
+
+      .demo-window-dots {
+        gap: 7px;
+      }
+
+      .demo-window-dots i {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #d1d7e0;
+      }
+
+      .demo-window-meta {
+        gap: 10px;
+        color: #697487;
+        font-size: 11px;
+        font-weight: 650;
+      }
+
+      .demo-window-meta span {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #10b981;
+      }
+
+      .demo-viewport {
+        display: flex;
+        min-height: 540px;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        padding: 18px;
+        background: #eef1f6;
+      }
+
+      .demo-screen {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        overflow: hidden;
+        border: 1px solid #dbe1ea;
+        background: #fff;
+        transition:
+          width 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+          border-radius 0.55s ease;
+      }
+
+      .demo-screen[data-device="tablet"] {
+        width: 72%;
+        border-radius: 10px;
+      }
+
+      .demo-screen[data-device="mobile"] {
+        width: 43%;
+        border-radius: 16px;
+      }
+
+      .demo-shot {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+        transition:
+          opacity 0.4s ease,
+          transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .demo-shot-library {
+        visibility: hidden;
+        opacity: 0;
+        transform: scale(1.025);
+      }
+
+      .demo-screen[data-view="library"] .demo-shot-style {
+        visibility: hidden;
+        opacity: 0;
+        transform: scale(0.985);
+      }
+
+      .demo-screen[data-view="library"] .demo-shot-library {
+        visibility: visible;
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      .demo-accent-wash {
+        position: absolute;
+        inset: 19.5% 28.3% 11.5% 24.5%;
+        z-index: 2;
+        border-radius: 7px;
+        background: var(--demo-accent);
+        mix-blend-mode: color;
+        opacity: 0.34;
+        pointer-events: none;
+        transition: background 0.35s ease;
+      }
+
+      .demo-selection {
+        position: absolute;
+        inset: 19.2% 28% 11.2% 24.2%;
+        z-index: 3;
+        border: 2px solid var(--demo-accent);
+        border-radius: 8px;
+        pointer-events: none;
+        transition: border-color 0.35s ease;
+      }
+
+      .demo-screen[data-view="library"] .demo-accent-wash,
+      .demo-screen[data-view="library"] .demo-selection {
+        visibility: hidden;
+        opacity: 0;
+      }
+
+      .demo-toast {
+        position: absolute;
+        z-index: 5;
+        right: 24px;
+        bottom: 24px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        border: 1px solid #caeadb;
+        border-radius: 6px;
+        background: rgba(246, 255, 250, 0.96);
+        color: #087a4c;
+        font-size: 11px;
+        font-weight: 700;
+        opacity: 0;
+        transform: translateY(12px);
+        pointer-events: none;
+      }
+
+      .demo-library-apply {
+        position: absolute;
+        z-index: 5;
+        right: 25px;
+        top: 30%;
+        display: none;
+        height: 34px;
+        padding: 0 14px;
+        border: 0;
+        border-radius: 6px;
+        background: #111827;
+        color: #fff;
+        cursor: pointer;
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      .demo-screen[data-view="library"] .demo-library-apply {
+        display: block;
+      }
+
+      @media (max-width: 900px) {
+        .real-editor-demo {
+          padding: 100px 16px 120px;
+        }
+
+        .demo-heading {
+          margin-bottom: 36px;
+        }
+
+        .demo-heading h2 {
+          font-size: 44px;
+        }
+
+        .demo-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .demo-controls {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .demo-status {
+          display: none;
+        }
+
+        .demo-viewport {
+          min-height: 340px;
+          padding: 10px;
+        }
+
+        .demo-screen[data-device="tablet"] {
+          width: 82%;
+        }
+
+        .demo-screen[data-device="mobile"] {
+          width: 58%;
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         *,
         *::before,
@@ -861,6 +1229,123 @@
               </div>
             </div>
             <div class="progress"><span></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="real-editor-demo" id="real-editor-demo">
+      <header class="demo-heading">
+        <p class="eyebrow">REAL KEYUN EDITOR</p>
+        <h2>좋은 선택만 남긴<br /><span>실제 편집 경험.</span></h2>
+        <p>
+          실제 KEYUN 디자인 에디터와 섹션 라이브러리입니다. 화면 모드와 브랜드 색상을
+          바꾸며 프리셋 기반 편집 흐름을 직접 확인해보세요.
+        </p>
+      </header>
+
+      <div class="demo-layout">
+        <aside class="demo-controls" aria-label="에디터 데모 설정">
+          <div>
+            <span class="demo-control-label">EDITOR VIEW</span>
+            <div class="demo-segment">
+              <button aria-pressed="true" data-demo-view="style" type="button">사이트 스타일</button>
+              <button aria-pressed="false" data-demo-view="library" type="button">라이브러리</button>
+            </div>
+          </div>
+
+          <div>
+            <span class="demo-control-label">BRAND COLOR</span>
+            <div class="demo-swatches">
+              <button
+                aria-label="KEYUN 블루"
+                aria-pressed="true"
+                class="demo-swatch"
+                data-demo-color="#3050ec"
+                style="--swatch: #3050ec"
+                type="button"
+              ></button>
+              <button
+                aria-label="에메랄드"
+                aria-pressed="false"
+                class="demo-swatch"
+                data-demo-color="#0f9f78"
+                style="--swatch: #0f9f78"
+                type="button"
+              ></button>
+              <button
+                aria-label="코랄"
+                aria-pressed="false"
+                class="demo-swatch"
+                data-demo-color="#e84f61"
+                style="--swatch: #e84f61"
+                type="button"
+              ></button>
+            </div>
+          </div>
+
+          <div>
+            <span class="demo-control-label">PREVIEW</span>
+            <div class="demo-devices">
+              <button
+                aria-label="데스크톱 미리보기"
+                aria-pressed="true"
+                class="demo-device-button"
+                data-demo-device="desktop"
+                type="button"
+              >
+                PC
+              </button>
+              <button
+                aria-label="태블릿 미리보기"
+                aria-pressed="false"
+                class="demo-device-button"
+                data-demo-device="tablet"
+                type="button"
+              >
+                TAB
+              </button>
+              <button
+                aria-label="모바일 미리보기"
+                aria-pressed="false"
+                class="demo-device-button"
+                data-demo-device="mobile"
+                type="button"
+              >
+                MO
+              </button>
+            </div>
+          </div>
+
+          <div class="demo-status">
+            <strong>실제 제품 화면</strong>
+            <p>계정 정보 없이 편집 화면만 사용한 프로토타입입니다.</p>
+          </div>
+        </aside>
+
+        <div class="demo-window">
+          <div class="demo-window-bar">
+            <div class="demo-window-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="demo-window-meta"><span></span> KEYUN Editor · Live preview</div>
+          </div>
+
+          <div class="demo-viewport">
+            <div class="demo-screen" data-device="desktop" data-view="style" id="real-editor-screen">
+              <img
+                alt="실제 KEYUN 사이트 스타일 편집 화면"
+                class="demo-shot demo-shot-style"
+                src="./keyun-editor-real.png"
+              />
+              <img
+                alt="실제 KEYUN 섹션 라이브러리 화면"
+                class="demo-shot demo-shot-library"
+                src="./keyun-editor-library-real.png"
+              />
+              <div class="demo-accent-wash" aria-hidden="true"></div>
+              <div class="demo-selection" aria-hidden="true"></div>
+              <button class="demo-library-apply" type="button">이 히어로 적용</button>
+              <div class="demo-toast" role="status">✓ 제품 캔버스가 적용되었습니다.</div>
+            </div>
           </div>
         </div>
       </div>
@@ -1076,6 +1561,86 @@
           onEnter: () => activateStage(stage),
           onEnterBack: () => activateStage(stage),
         });
+      });
+
+      const realEditorDemo = document.querySelector("#real-editor-demo");
+      const realEditorScreen = document.querySelector("#real-editor-screen");
+      const demoViewButtons = gsap.utils.toArray("[data-demo-view]");
+      const demoColorButtons = gsap.utils.toArray("[data-demo-color]");
+      const demoDeviceButtons = gsap.utils.toArray("[data-demo-device]");
+      const demoApplyButton = document.querySelector(".demo-library-apply");
+      const demoToast = document.querySelector(".demo-toast");
+
+      function setPressed(buttons, activeButton) {
+        buttons.forEach((button) => {
+          button.setAttribute("aria-pressed", String(button === activeButton));
+        });
+      }
+
+      demoViewButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          realEditorScreen.dataset.view = button.dataset.demoView;
+          setPressed(demoViewButtons, button);
+          gsap.fromTo(
+            realEditorScreen,
+            { scale: 0.992 },
+            { scale: 1, duration: 0.45, ease: "power3.out" },
+          );
+        });
+      });
+
+      demoColorButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          realEditorDemo.style.setProperty("--demo-accent", button.dataset.demoColor);
+          setPressed(demoColorButtons, button);
+          gsap.fromTo(
+            ".demo-selection",
+            { boxShadow: `0 0 0 0 ${button.dataset.demoColor}00` },
+            {
+              boxShadow: `0 0 0 9px ${button.dataset.demoColor}20`,
+              duration: 0.5,
+              yoyo: true,
+              repeat: 1,
+            },
+          );
+        });
+      });
+
+      demoDeviceButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          realEditorScreen.dataset.device = button.dataset.demoDevice;
+          setPressed(demoDeviceButtons, button);
+        });
+      });
+
+      demoApplyButton.addEventListener("click", () => {
+        realEditorScreen.dataset.view = "style";
+        setPressed(demoViewButtons, demoViewButtons[0]);
+        gsap.fromTo(
+          demoToast,
+          { autoAlpha: 0, y: 12 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.35,
+            ease: "power2.out",
+            onComplete: () => {
+              gsap.to(demoToast, { autoAlpha: 0, y: 8, delay: 1.6, duration: 0.35 });
+            },
+          },
+        );
+      });
+
+      gsap.from([".demo-heading", ".demo-controls", ".demo-window"], {
+        scrollTrigger: {
+          trigger: realEditorDemo,
+          start: "top 72%",
+        },
+        y: 44,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.12,
+        ease: "power3.out",
       });
 
       activateStage("select");
